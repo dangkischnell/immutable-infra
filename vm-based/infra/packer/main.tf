@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 provider "aws" {
   version = "~> 2.0"
   region  = var.region
@@ -274,8 +273,3 @@ resource "local_file" "packer-variables" {
   filename = "${path.root}/variables.json"
   file_permission = "0600"
 }
-
-
-
-
->>>>>>> upstream/main
