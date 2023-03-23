@@ -24,9 +24,14 @@ pipeline {
 
       steps {
         withCredentials([
-          usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+          usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY'),
+          string(credentialsId: 'github_personal_token', variable: 'GITHUB_TOKEN'),
         ]) {
         sh '''
+          rm -rf node-app-terraform
+          git clone https://${GITHUB_TOKEN}@github.com:dangkischnell/immutable-infra.git
+          cd immutable-infra
+          terraform init
           cd "${WORK_SUB_DIR}"
           terraform init        
           terraform apply -auto-approve -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
