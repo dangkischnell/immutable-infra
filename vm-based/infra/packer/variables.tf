@@ -19,11 +19,7 @@ variable "vpc_cidr" {
 }
 
 variable "public_subnet_cidr" {
-  default = {
-    "0" : "10.0.0.0/24"
-    "1" : "10.0.0.1/24"
-    "2" : "10.0.0.2/24"
-  }
+  default = "10.0.0.0/24"
 }
 
 variable "build_number" {
