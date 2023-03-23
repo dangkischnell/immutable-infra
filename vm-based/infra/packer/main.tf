@@ -83,8 +83,8 @@ resource "aws_route_table" "public" {
 
 resource "aws_subnet" "packer" {
   vpc_id            = aws_vpc.packer.id
-  cidr_block        = var.public_subnet_cidr
-  availability_zone = ["eu-central-1a", "eu-central-1b"]
+  cidr_block        = var.public_subnet_cidr[0]
+  availability_zone = random_shuffle.random_azs.result[0]
 
   map_public_ip_on_launch = true
   tags = merge(
