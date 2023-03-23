@@ -49,7 +49,7 @@ resource "aws_vpc" "packer" {
     {
       Name = "packer-vpc"
       Env  = "demo"
-    }, local.common_tags
+    }
   )
 }
 
@@ -60,7 +60,7 @@ resource "aws_internet_gateway" "packer" {
     {
       Name = "packer-igw"
       Env  = "demo"
-    }, local.common_tags
+    }
   )
 }
 
@@ -74,7 +74,7 @@ resource "aws_route_table" "public" {
     {
       Name = "packer-pub-rt"
       Env  = "demo"
-    }, local.common_tags
+    }
   )
 }
 
@@ -88,7 +88,7 @@ resource "aws_subnet" "packer" {
     {
       Name = "packer-pub-subnet"
       Env  = "demo"
-    }, local.common_tags
+    }
   )
 }
 
@@ -104,7 +104,7 @@ resource "aws_security_group" "allow-ssh" {
     {
       Name = "allow_ssh_sg"
       Env  = "demo"
-    }, local.common_tags
+    }
   )
 }
 
