@@ -39,9 +39,10 @@ pipeline {
       }
 
       steps {
-        sh '''#!/usr/bin/env bash
-          echo "Shell Process ID: $$"
-          set -o errexit
+        withCredentials([
+            usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+          ]) {
+        sh '''
           readonly ROLE_LIST=(
             web
             app
@@ -49,20 +50,26 @@ pipeline {
           cd "${WORK_SUB_DIR}"
           for role_name in "${ROLE_LIST[@]}"
           do
-            bash scripts/packer-build.sh $role_name
+            export role_name=$role_name
+            packer validate -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} -var-file variables.json packer.json
+            packer build -debug -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} -var-file variables.json packer.json
           done
-        '''
+           '''
+          }
       }
     }
   }
 
   post {
     cleanup {
-      sh '''#!/usr/bin/env bash
-        echo "Shell Process ID: $$"
-        cd "${WORK_SUB_DIR}"
-        bash scripts/post-cleanup.sh
-      '''
-    }
+      withCredentials([
+          usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+        ]) {
+          sh '''
+            cd "${WORK_SUB_DIR}"
+            terraform destroy -state="terraform.tfstate" -auto-approve -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
+            '''
+          }
+       }
   }
 }
