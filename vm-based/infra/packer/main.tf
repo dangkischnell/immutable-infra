@@ -30,7 +30,7 @@ resource "tls_private_key" "packer" {
 
 resource "local_sensitive_file" "packer" {
   content  = tls_private_key.packer.private_key_pem
-  filename = local.private_keyname_path
+  filename = "local.private_keyname_path"
 }
 
 
