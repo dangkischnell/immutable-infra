@@ -1,5 +1,5 @@
 pipeline {
-
+  agent none
   environment {
     AWS_ACCESS_KEY_ID     = credentials('PACKER_AWS_ACCESS_KEY')
     AWS_SECRET_ACCESS_KEY = credentials('PACKER_AWS_SECRET_KEY')
@@ -8,16 +8,17 @@ pipeline {
     JENKINS_API_TOKEN     = credentials('JENKIN_API_TOKEN')
   }
 
-  agent {
-    docker {
-      image 'jeduoliveira/terraform-packer-aws-alpine:latest'
-    }
-  }
+
   
   stages {
     stage('terraform-apply') {
       options {
         timeout(time: 10, unit: 'MINUTES')
+      }
+      agent {
+        docker {
+          image 'jeduoliveira/terraform-packer-aws-alpine:latest'
+        }
       }
 
       steps {
@@ -37,7 +38,11 @@ pipeline {
       options {
         timeout(time: 150, unit: 'MINUTES')
       }
-
+      agent {
+        docker {
+          image 'ksandermann/cloud-toolbox:latest'
+        }
+      }   
       steps {
         withCredentials([
             usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY'),
