@@ -54,22 +54,22 @@ pipeline {
             packer validate -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} -var-file variables.json packer.json
             packer build -debug -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} -var-file variables.json packer.json
           done
-           '''
+          '''
           }
       }
     }
   }
 
-  post {
-    cleanup {
-      withCredentials([
-          usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
-        ]) {
-          sh '''
-            cd "${WORK_SUB_DIR}"
-            terraform destroy -state="terraform.tfstate" -auto-approve -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
-            '''
-          }
-       }
-  }
+  // post {
+  //   cleanup {
+  //     withCredentials([
+  //         usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+  //       ]) {
+  //         sh '''
+  //           cd "${WORK_SUB_DIR}"
+  //           terraform destroy -state="terraform.tfstate" -auto-approve -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
+  //           '''
+  //         }
+  //      }
+  // }
 }
