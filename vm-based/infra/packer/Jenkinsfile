@@ -47,7 +47,7 @@ pipeline {
           for role_name in app web
           do
             export role_name=$role_name
-            packer build -debug -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} -var-file variables.json packer.json.pkr.hcl
+            packer build -debug -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} -var-file variables.json packer.json
           done
           '''
           }
