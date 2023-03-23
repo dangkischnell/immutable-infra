@@ -43,12 +43,8 @@ pipeline {
             usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY'),
           ]) {
         sh '''
-          readonly ROLE_LIST=(
-            web
-            app
-          )
           cd "${WORK_SUB_DIR}"
-          for role_name in "${ROLE_LIST[@]}"
+          for role_name in app web
           do
             export role_name=$role_name
             packer validate -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} -var-file variables.json packer.json
