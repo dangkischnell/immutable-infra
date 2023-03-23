@@ -6,21 +6,18 @@ pipeline {
     WORK_SUB_DIR          = 'vm-based/infra/packer'
     JENKINS_USER_ID       = 'user'
     JENKINS_API_TOKEN     = credentials('JENKIN_API_TOKEN')
-  }
-
-
-  
+  }  
   stages {
     stage('terraform-apply') {
       options {
         timeout(time: 10, unit: 'MINUTES')
       }
-      agent {
-        docker {
-          // image 'jeduoliveira/terraform-packer-aws-alpine:latest'
-          image 'codebarber/ansible-packer-terraform:latest'
-        }
-      }
+      // agent {
+      //   docker {
+      //     // image 'jeduoliveira/terraform-packer-aws-alpine:latest'
+      //     image 'codebarber/ansible-packer-terraform:latest'
+      //   }
+      // }
 
       steps {
         withCredentials([
@@ -44,12 +41,12 @@ pipeline {
       options {
         timeout(time: 150, unit: 'MINUTES')
       }
-      agent {
-        docker {
-          // image 'ksandermann/cloud-toolbox:latest'
-          image 'codebarber/ansible-packer-terraform:latest'
-        }
-      }   
+      // agent {
+      //   docker {
+      //     // image 'ksandermann/cloud-toolbox:latest'
+      //     image 'codebarber/ansible-packer-terraform:latest'
+      //   }
+      // }   
       steps {
         withCredentials([
             usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY'),
