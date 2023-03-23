@@ -61,8 +61,8 @@
         "--extra-vars", "packer_remote_user={{ user `packer_remote_user` }}",
         "--extra-vars", "role_name={{ user `role_name` }}"
       ],
-      "galaxy_file": "vm-based/ansible/galaxy-requirements.yml",
-      "playbook_file": "vm-based/ansible/packer-imaging_{{ user `role_name` }}.yml"
+      "galaxy_file": "../../ansible/galaxy-requirements.yml",
+      "playbook_file": "../../ansible/packer-imaging_{{ user `role_name` }}.yml"
     },
     {
       "type": "shell",
