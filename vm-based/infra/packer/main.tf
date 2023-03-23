@@ -115,7 +115,7 @@ resource "local_file" "packer-variables" {
     subnet_id              = aws_subnet.packer.id
     private_key            = local.private_keyname_path
     public_key             = aws_key_pair.packer.key_name
-    security_groups        = aws_security_group.allow-ssh.name
+    security_group_id        = aws_security_group.allow-ssh.name
     instance_type          = lookup(var.ami_spec, "instance_type")
     ami_desc               = lookup(var.ami_spec, "ami_desc")
     ami_owner              = lookup(var.ami_spec, "ami_owner")
