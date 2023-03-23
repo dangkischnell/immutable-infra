@@ -42,8 +42,6 @@ variable "ami_spec" {
     "instance_type" = "t2.micro"
     "ami_desc"      = "Canonical, Ubuntu, 18.04 LTS*"
     "ami_owner"     = "099720109477"
-    "volume_type"   = "gp2"
-    "volume_size"   = 20
     "packer_remote_user"   = "ubuntu"
   }
 }
