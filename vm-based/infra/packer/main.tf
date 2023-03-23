@@ -7,15 +7,6 @@ provider "aws" {
   region     = "eu-central-1"
 }
 
-terraform {
-  required_providers {
-    mycloud = {
-      source  = "hashicorp/aws"
-      version = "~> 1.0.4"
-    }
-  }
-}
-
 data "aws_availability_zones" "available" {
   state = "available"
 }
