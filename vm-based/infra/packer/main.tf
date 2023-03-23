@@ -8,7 +8,12 @@ provider "aws" {
 }
 
 terraform {
-  required_version = ">= 0.12.2"
+  required_providers {
+    mycloud = {
+      source  = "hashicorp/aws"
+      version = "~> 1.0.4"
+    }
+  }
 }
 
 data "aws_availability_zones" "available" {
