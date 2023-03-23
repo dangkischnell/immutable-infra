@@ -17,7 +17,8 @@ pipeline {
       }
       agent {
         docker {
-          image 'jeduoliveira/terraform-packer-aws-alpine:latest'
+          // image 'jeduoliveira/terraform-packer-aws-alpine:latest'
+          image 'codebarber/ansible-packer-terraform:latest'
         }
       }
 
@@ -40,7 +41,8 @@ pipeline {
       }
       agent {
         docker {
-          image 'ksandermann/cloud-toolbox:latest'
+          // image 'ksandermann/cloud-toolbox:latest'
+          image 'codebarber/ansible-packer-terraform:latest'
         }
       }   
       steps {
