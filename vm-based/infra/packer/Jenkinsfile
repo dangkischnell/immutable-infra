@@ -21,12 +21,14 @@ pipeline {
       }
 
       steps {
-        sh '''#!/usr/bin/env bash
-          echo "Shell Process ID: $$"
-          cd "${WORK_SUB_DIR}"
-          sed -i 's/\r$//' scripts/*
-          bash scripts/tf-apply.bash
+        withCredentials([
+          usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+        ]) {
+        sh '''
+          terraform init        
+          terraform apply -auto-approve -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
         '''
+        }
       }
     }
 
