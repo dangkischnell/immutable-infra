@@ -2,9 +2,9 @@
   "description": "package image for {{ user `role_name` }}",
   "variables": {
     "build_ts": "{{ timestamp }}",
-
     "project_name": "packer-demo",
     "role_name": "{{ env `role_name` }}",
+    "ssh_username": "ubuntu",
     "packer_remote_user": "",
     "region_name": "",
     "instance_type": "",
@@ -13,7 +13,6 @@
     "volume_type": "",
     "volume_size": "",
     "ansible_dir_path": "",
-
     "public_key": "",
     "private_key": "",
     "vpc_id": "",
@@ -26,7 +25,6 @@
       "name": "ebs-{{ user `project_name` }}-{{ user `security_group_id` }}-{{ user `role_name` }}",
       "associate_public_ip_address": true,
       "region": "{{ user `region_name` }}",
-
       "source_ami_filter": {
         "filters": {
           "root-device-type": "ebs",
@@ -44,11 +42,9 @@
       "ssh_private_key_file": "{{ user `private_key` }}",
       "ami_name": "{{ user `project_name` }}-{{ user `role_name` }}_{{ user `build_ts` }}",
       "security_group_id": "{{ user `security_group_id` }}",
-
       "vpc_id": "{{ user `vpc_id` }}",
       "subnet_id": "{{ user `subnet_id` }}",
       "ami_description": "{{ user `project_name` }}-{{ user `role_name` }}_{{ user `region_name` }}_{{ user `build_ts` }} AMI",
-
       "launch_block_device_mappings": [
         {
           "device_name": "/dev/sda1",
