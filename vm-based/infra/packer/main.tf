@@ -41,7 +41,7 @@ resource "aws_key_pair" "packer" {
 }
 
 resource "aws_vpc" "packer" {
-  cidr_block = ""
+  cidr_block = var.vpc_cidr
   enable_dns_hostnames = true
   enable_dns_support = true
 
