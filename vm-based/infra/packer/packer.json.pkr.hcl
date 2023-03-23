@@ -153,6 +153,7 @@ source "amazon-ebs" "ebs-{{_user_`project_name`_}}-{{_user_`security_group_id`_}
 # a build block invokes sources and runs provisioning steps on them. The
 # documentation for build blocks can be found here:
 # https://www.packer.io/docs/templates/hcl_templates/blocks/build
+
 build {
   description = "package image for {{ user `role_name` }}"
 
@@ -173,3 +174,4 @@ build {
     script = "scripts/doing-something.sh"
   }
 
+}
