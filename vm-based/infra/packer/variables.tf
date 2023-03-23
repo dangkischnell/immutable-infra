@@ -44,7 +44,7 @@ variable "ami_spec" {
     "ami_owner"     = "099720109477"
     "volume_type"   = "gp2"
     "volume_size"   = 20
-    "remote_user"   = "ubuntu"
+    "packer_remote_user"   = "ubuntu"
   }
 }
 
