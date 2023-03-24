@@ -9,5 +9,4 @@ ${jsonencode({
     "ami_desc"               = "${ami_desc}"
     "ami_owner"              = "${ami_owner}"
     "packer_remote_user"     = "${packer_remote_user}"
-    "ansible_dir_path"       = "${ansible_dir_path}"
 })}
