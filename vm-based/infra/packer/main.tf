@@ -119,7 +119,6 @@ resource "local_file" "packer-variables" {
     ami_desc               = lookup(var.ami_spec, "ami_desc")
     ami_owner              = lookup(var.ami_spec, "ami_owner")
     packer_remote_user     = lookup(var.ami_spec, "packer_remote_user")
-    ansible_dir_path       = var.ansible_dir_path
   }
 )
   filename = "${path.root}/variables.json"

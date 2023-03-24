@@ -27,8 +27,7 @@
       "source_ami_filter": {
         "filters": {
           "root-device-type": "ebs",
-          "architecture": "x86_64",
-          "description": "{{ user `ami_desc` }}"
+          "architecture": "x86_64"
         },
         "owners": [
           "{{ user `ami_owner` }}"
