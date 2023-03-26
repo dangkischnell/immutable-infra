@@ -3,5 +3,5 @@ output "SG_cidr" {
 }
 
 output "subnet_cidr" {
-  value = "${aws_subnet.packer.cidr_block }"
+  value = "${aws_subnet.packer }"
 }
