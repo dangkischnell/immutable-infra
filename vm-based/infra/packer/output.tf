@@ -1,5 +1,5 @@
 output "SG_cidr" {
-  value = "${aws_security_group.allow-ssh.id}"
+  value = "${aws_security_group.allow-ssh.ingress.cidr_blocks[0]}"
 }
 
 output "subnet_cidr" {
