@@ -40,7 +40,7 @@
 
     - name: Install the tomcat version {{ tomcat_version }}
       get_url:
-        url: "https://downloads.apache.org/tomcat/tomcat-{{ tomcat_version[0] }}/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
+        url: "https://dlcdn.apache.org/tomcat/tomcat-{{ tomcat_version[0] }}/v{{ tomcat_version }}/bin/apache-tomcat-{{ tomcat_version }}.tar.gz"
         dest: /var/cache
 
     - name: Unarchive tomcat
