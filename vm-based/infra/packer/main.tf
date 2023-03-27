@@ -14,7 +14,7 @@ data "aws_availability_zones" "available" {
 locals {
   timestamp             = formatdate("YYYYMMDD-hhmmss", timestamp())
   number_azs            = length(data.aws_availability_zones.available.names)
-  common_tags           = "packer-ami-${var.build_number}-${local.timestamp}"
+  common_tags           = {"CommonTags": "packer-ami-${var.build_number}-${local.timestamp}"}
   private_keyname_path  = "${path.root}/keys/${var.private_keyname}"
 }
 
@@ -48,7 +48,7 @@ resource "aws_vpc" "packer" {
     {
       Name = "packer-vpc"
       Env  = "demo"
-    }
+    }, local.common_tags
   )
 }
 
@@ -59,7 +59,7 @@ resource "aws_internet_gateway" "packer" {
     {
       Name = "packer-igw"
       Env  = "demo"
-    }
+    }, local.common_tags
   )
 }
 
@@ -73,7 +73,7 @@ resource "aws_route_table" "public" {
     {
       Name = "packer-pub-rt"
       Env  = "demo"
-    }
+    }, local.common_tags
   )
 }
 
@@ -87,8 +87,13 @@ resource "aws_subnet" "packer" {
     {
       Name = "packer-pub-subnet"
       Env  = "demo"
-    }
+    }, local.common_tags
   )
+}
+
+resource "aws_route_table_association" "packer" {
+  route_table_id = aws_route_table.public.id
+  subnet_id = aws_subnet.packer.id
 }
 
 resource "aws_security_group" "allow-ssh" {
@@ -100,11 +105,17 @@ resource "aws_security_group" "allow-ssh" {
     to_port = 22
     cidr_blocks = ["0.0.0.0/0"]    
   }
+  egress {
+    from_port = 0
+    protocol = "-1"
+    to_port = 0
+    cidr_blocks = ["0.0.0.0/0"]
+  }
   tags = merge(
     {
       Name = "allow_ssh_sg"
       Env  = "demo"
-    }
+    }, local.common_tags
   )
 }
 
