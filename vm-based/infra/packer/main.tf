@@ -98,6 +98,7 @@ resource "aws_security_group" "allow-ssh" {
     protocol = "tcp"
     to_port = 22
     cidr_blocks = ["0.0.0.0/0"]
+    vpc_id = aws_vpc.packer.id
   }
   tags = merge(
     {
