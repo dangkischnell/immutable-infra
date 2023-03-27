@@ -93,12 +93,12 @@ resource "aws_subnet" "packer" {
 
 resource "aws_security_group" "allow-ssh" {
   name = "allow ssh"
+  vpc_id = aws_vpc.packer.id
   ingress {
     from_port = 22
     protocol = "tcp"
     to_port = 22
-    cidr_blocks = ["0.0.0.0/0"]
-    vpc_id = aws_vpc.packer.id
+    cidr_blocks = ["0.0.0.0/0"]    
   }
   tags = merge(
     {
