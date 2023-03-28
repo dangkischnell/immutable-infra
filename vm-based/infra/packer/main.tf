@@ -48,22 +48,23 @@ resource "aws_vpc" "packer" {
   enable_dns_hostnames = true
   enable_dns_support = true
 
-  tags = merge(
-    {
-      Name = "packer-vpc"
-      Env  = "demo"
-    }
-  )
+  # tags = merge(
+  #   {
+  #     Name = "packer-vpc"
+  #     Env  = "demo"
+  #   }, local.common_tags
+  # )
 }
 
 resource "aws_internet_gateway" "packer" {
   vpc_id = aws_vpc.packer.id
 
-  tags = merge(
-    {
-      Name = "packer-igw"
-      Env  = "demo"
-    }
+  # tags = merge(
+  #   {
+  #     Name = "packer-igw"
+  #     Env  = "demo"
+  #   }, local.common_tags
+  # )
 }
 
 resource "aws_route_table" "public" {
@@ -72,12 +73,12 @@ resource "aws_route_table" "public" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.packer.id
   }
-  tags = merge(
-    {
-      Name = "packer-pub-rt"
-      Env  = "demo"
-    }
-  )
+  # tags = merge(
+  #   {
+  #     Name = "packer-pub-rt"
+  #     Env  = "demo"
+  #   }, local.common_tags
+  # )
 }
 
 resource "aws_subnet" "packer" {
@@ -86,11 +87,12 @@ resource "aws_subnet" "packer" {
   availability_zone = random_shuffle.random_azs.result[0]
 
   map_public_ip_on_launch = true
-  tags = merge(
-    {
-      Name = "packer-pub-subnet"
-      Env  = "demo"
-    }
+  # tags = merge(
+  #   {
+  #     Name = "packer-pub-subnet"
+  #     Env  = "demo"
+  #   }, local.common_tags
+  # )
 }
 
 resource "aws_route_table_association" "packer" {
@@ -113,12 +115,12 @@ resource "aws_security_group" "allow-ssh" {
     to_port = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
-  tags = merge(
-    {
-      Name = "allow_ssh_sg"
-      Env  = "demo"
-    }
-  )
+  # tags = merge(
+  #   {
+  #     Name = "allow_ssh_sg"
+  #     Env  = "demo"
+  #   }, local.common_tags
+  # )
 }
 
 resource "local_file" "packer-variables" {
