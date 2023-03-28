@@ -1,7 +1,8 @@
 pipeline {
   agent {
-  docker {
-    image 'codebarber/ansible-packer-terraform:latest'
+    docker {
+      image 'codebarber/ansible-packer-terraform:latest'
+    }
   }
   environment {
     AWS_ACCESS_KEY_ID     = credentials('PACKER_AWS_ACCESS_KEY')
