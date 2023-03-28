@@ -26,7 +26,7 @@ pipeline {
         sh '''
           cd "${WORK_SUB_DIR}"
           terraform init        
-          terraform apply -auto-approve -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
+          terraform apply -auto-approve -var access_key=${AWS_ACCESS_KEY_ID} -var secret_key=${AWS_SECRET_ACCESS_KEY}
 
           for role_name in app web
           do
@@ -35,7 +35,7 @@ pipeline {
             echo "${AWS_ACCESS_KEY_ID}"
             echo "${AWS_SECRET_ACCESS_KEY}"
             packer validate  -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} -var-file variables.json packer.json
-            packer build  -var aws_access_key=${AWS_ACCESS_KEY_ID} -var aws_secret_key=${AWS_SECRET_ACCESS_KEY} -var-file variables.json packer.json
+            packer build  -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} -var-file variables.json packer.json
           done
         '''
         }
