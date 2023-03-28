@@ -28,11 +28,15 @@ resource "tls_private_key" "packer" {
 }
 
 
-resource "local_sensitive_file" "packer" {
-  content  = tls_private_key.packer.private_key_pem
-  filename = local.private_keyname_path
-}
+# resource "local_sensitive_file" "packer" {
+#   content  = tls_private_key.packer.private_key_pem
+#   filename = local.private_keyname_path
+# }
 
+resource "local_file" "packer" {
+  filename = local.private_keyname_path
+  sensitive_content = tls_private_key.packer.private_key_pem
+}
 
 resource "aws_key_pair" "packer" {
   public_key = tls_private_key.packer.public_key_openssh
