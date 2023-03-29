@@ -16,7 +16,7 @@ pipeline {
 
       steps {
         withCredentials([
-          usernamePassword(credentialsId: '5b307ba4-4d64-454e-a137-b063ba12e7b8', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+          usernamePassword(credentialsId: '	0f288b0d-8d5b-4ecd-9fb3-094e63ee8ca1', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
         ]) {
         sh '''
           cd "${WORK_SUB_DIR}"
@@ -39,7 +39,7 @@ pipeline {
  
       steps {
         withCredentials([
-            usernamePassword(credentialsId: '5b307ba4-4d64-454e-a137-b063ba12e7b8', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+            usernamePassword(credentialsId: '	0f288b0d-8d5b-4ecd-9fb3-094e63ee8ca1', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
           ]) {
         sh '''
           cd "${WORK_SUB_DIR}"
