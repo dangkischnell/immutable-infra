@@ -33,7 +33,7 @@ pipeline {
             export role_name=$role_name
             cat variables.json
             packer validate  -var-file variables.json packer.json
-            packer build  -var aws_access_key="AKIA5KGNPIT7JBF52DEM" -var aws_secret_key="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" -var-file variables.json packer.json
+            packer build   -var-file variables.json packer.json
           done
         '''
         }
