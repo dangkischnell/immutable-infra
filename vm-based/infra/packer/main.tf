@@ -1,6 +1,3 @@
-variable "access_key" {}
-variable "secret_key" {}
-
 terraform {
   required_version = ">= 0.12"
 }
