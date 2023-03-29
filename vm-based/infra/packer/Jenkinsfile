@@ -1,15 +1,15 @@
 pipeline {
-  agent none
+  agent any
   environment {
     WORK_SUB_DIR          = 'vm-based/infra/packer'
   }  
   stages {
     stage('terraform-apply') {
-      agent {
-        docker {
-          image 'ksandermann/cloud-toolbox:latest'
-        }
-      }
+      // agent {
+      //   docker {
+      //     image 'ksandermann/cloud-toolbox:latest'
+      //   }
+      // }
       options {
         timeout(time: 10, unit: 'MINUTES')
       }
@@ -28,11 +28,11 @@ pipeline {
     }
 
     stage('packaging-image') {
-      agent {
-        docker {
-          image 'jeduoliveira/terraform-packer-aws-alpine:latest'
-        }
-      }     
+      // agent {
+      //   docker {
+      //     image 'jeduoliveira/terraform-packer-aws-alpine:latest'
+      //   }
+      // }     
       options {
         timeout(time: 150, unit: 'MINUTES')
       }
