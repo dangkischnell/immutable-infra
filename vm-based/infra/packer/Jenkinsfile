@@ -1,67 +1,58 @@
 pipeline {
-  agent {
-    docker {
-      image 'codebarber/ansible-packer-terraform:latest'
-    }
-  }
+  agent none
   environment {
-    AWS_ACCESS_KEY_ID     = credentials('PACKER_AWS_ACCESS_KEY')
-    AWS_SECRET_ACCESS_KEY = credentials('PACKER_AWS_SECRET_KEY')
     WORK_SUB_DIR          = 'vm-based/infra/packer'
-    JENKINS_USER_ID       = 'user'
-    JENKINS_API_TOKEN     = credentials('JENKIN_API_TOKEN')
   }  
   stages {
     stage('terraform-apply') {
-
+      agent {
+        docker {
+          image 'ksandermann/cloud-toolbox:latest'
+        }
+      }
       options {
         timeout(time: 10, unit: 'MINUTES')
       }
 
       steps {
         withCredentials([
-          usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY'),
-          string(credentialsId: 'github_personal_token', variable: 'GITHUB_TOKEN'),
+          usernamePassword(credentialsId: '5b307ba4-4d64-454e-a137-b063ba12e7b8', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
         ]) {
         sh '''
           cd "${WORK_SUB_DIR}"
           terraform init        
-          terraform apply -auto-approve -var access_key="AKIA5KGNPIT7JBF52DEM" -var secret_key="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"
-
-          for role_name in app web
-          do
-            export role_name=$role_name
-            cat variables.json
-            packer validate  -var-file variables.json packer.json
-            packer build   -var-file variables.json packer.json
-          done
+          terraform apply -auto-approve -var access_key=${AWS_KEY} -var secret_key=${AWS_SECRET}
         '''
         }
       }
     }
 
-    // stage('packaging-image') {
-     
-    //   options {
-    //     timeout(time: 150, unit: 'MINUTES')
-    //   }
+    stage('packaging-image') {
+      agent {
+        docker {
+          image 'jeduoliveira/terraform-packer-aws-alpine:latest'
+        }
+      }     
+      options {
+        timeout(time: 150, unit: 'MINUTES')
+      }
  
-    //   steps {
-    //     withCredentials([
-    //         usernamePassword(credentialsId: '63715168-c881-45f2-a269-873208bf331e', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY'),
-    //       ]) {
-    //     sh '''
-    //       cd "${WORK_SUB_DIR}"
-    //       for role_name in app web
-    //       do
-    //         export role_name=$role_name
-    //         packer validate  -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} -var-file variables.json packer.json
-    //         packer build  -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} -var-file variables.json packer.json
-    //       done
-    //       '''
-    //       }
-    //   }
-    // }
+      steps {
+        withCredentials([
+            usernamePassword(credentialsId: '5b307ba4-4d64-454e-a137-b063ba12e7b8', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_KEY')
+          ]) {
+        sh '''
+          cd "${WORK_SUB_DIR}"
+          for role_name in app web
+          do
+            export role_name=$role_name
+            packer validate  -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} -var-file variables.json packer.json
+            packer build  -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} -var-file variables.json packer.json
+          done
+          '''
+          }
+      }
+    }
   }
 
   // post {
