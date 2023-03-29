@@ -1,7 +1,12 @@
 variable "access_key" {}
 variable "secret_key" {}
 terraform {
-  required_version = ">= 0.12"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
 }
 provider "aws" {
   access_key = "${var.access_key}"
@@ -30,15 +35,15 @@ resource "tls_private_key" "packer" {
 }
 
 
-# resource "local_sensitive_file" "packer" {
-#   content  = tls_private_key.packer.private_key_pem
-#   filename = local.private_keyname_path
-# }
-
-resource "local_file" "packer" {
+resource "local_sensitive_file" "packer" {
+  content  = tls_private_key.packer.private_key_pem
   filename = local.private_keyname_path
-  sensitive_content = tls_private_key.packer.private_key_pem
 }
+
+# resource "local_file" "packer" {
+#   filename = local.private_keyname_path
+#   sensitive_content = tls_private_key.packer.private_key_pem
+# }
 
 resource "aws_key_pair" "packer" {
   public_key = tls_private_key.packer.public_key_openssh
