@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent jenkins
   environment {
     WORK_SUB_DIR          = 'vm-based/infra/packer'
   }  
