@@ -26,14 +26,14 @@ pipeline {
         sh '''
           cd "${WORK_SUB_DIR}"
           terraform init        
-          terraform apply -auto-approve -var access_key="AKIA5KGNPIT7DXHS5XT4" -var secret_key="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"
+          terraform apply -auto-approve -var access_key="AKIA5KGNPIT7JBF52DEM" -var secret_key="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"
 
           for role_name in app web
           do
             export role_name=$role_name
             cat variables.json
             packer validate  -var-file variables.json packer.json
-            packer build  -var aws_access_key="AKIA5KGNPIT7DXHS5XT4" -var aws_secret_key="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" -var-file variables.json packer.json
+            packer build  -var aws_access_key="AKIA5KGNPIT7JBF52DEM" -var aws_secret_key="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" -var-file variables.json packer.json
           done
         '''
         }
