@@ -1,3 +1,11 @@
+variable "access_key" {
+  default ="AKIA5KGNPIT7DXHS5XT4"
+}
+variable "secret_key" {
+  default ="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"
+}
+
+
 variable "project" {
   default = "packer"
 }
