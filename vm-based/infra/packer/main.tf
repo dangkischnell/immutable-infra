@@ -1,7 +1,7 @@
 variable "access_key" {}
 variable "secret_key" {}
 terraform {
-  required_version = ">= 0.14"
+  required_version = ">= 0.12"
 }
 provider "aws" {
   access_key = "${var.access_key}"
