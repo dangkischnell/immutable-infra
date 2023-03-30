@@ -52,6 +52,7 @@ pipeline {
           cd "${WORK_SUB_DIR}"
           sed -i 's/\r$//' scripts/*
           bash scripts/tf-apply.bash
+          echo "DONE"
         '''
       }
     }
