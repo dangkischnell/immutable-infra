@@ -69,3 +69,19 @@
 
 ![alt text](https://github.com/hoabka/immutable-infra/blob/master/res/cleanup.JPG)
 
+
+
+STEPS to run manually the playbooks to create AMIs:
+---------------------------------------------------
+1. cd immutable-infra/vm-based/infra/packer/
+2. terraform apply
+3. export role_name=app
+4. packer build  -var aws_access_key="AKIA5KGNPIT7K6WFZGOH" -var aws_secret_key="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" -var-file variables.json packer.json
+5. export role_name=web
+6. packer build  -var aws_access_key="AKIA5KGNPIT7K6WFZGOH" -var aws_secret_key="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" -var-file variables.json packer.json
+
+
+STEPS to run manually to deploy:
+--------------------------------
+1. cd immutable-infra/vm-based/infra/aws
+2. 
