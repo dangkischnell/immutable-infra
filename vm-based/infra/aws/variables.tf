@@ -1,4 +1,3 @@
-variable "account_id" {}
 variable "project" {}
 variable "env" {}
 variable "profile" {}

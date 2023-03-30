@@ -1,8 +1,7 @@
-account_id = "633834615594"
 project    = "packer-demo"
 env        = "demo"
 profile    = "packer-demo"
-region     = "us-west-2"
+region     = "eu-central-1"
 
 vpc_cidr               = "10.1.0.0/16"
 number_public_subnets  = 3
