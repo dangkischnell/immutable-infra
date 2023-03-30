@@ -16,6 +16,26 @@ pipeline {
     JENKINS_API_TOKEN     = credentials('JENKIN_API_TOKEN')
   }
 
+  parameters {
+    choice(
+      choices: ['deployment' , 'cleanup'],
+      description: '',
+      name: 'REQUESTED_ACTION'
+    )
+    string(
+      name: 'IMG_LABEL',
+      defaultValue: 'latest',
+      description: 'docker container image label name'
+    )
+    choice(
+      name: 'TF_REMOTE_USER',
+      choices: [
+        'ubuntu',
+      ],
+      description: 'packer remote user'
+    )
+  }
+
   stages {
     stage('terraform-apply') {
       when {
