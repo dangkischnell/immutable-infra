@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-terraform init
+terraform init -migrate-state
 terraform validate
 terraform plan
 terraform apply --auto-approve
