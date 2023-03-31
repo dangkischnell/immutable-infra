@@ -14,3 +14,7 @@
   template:
     src: nginx.service.j2
     dest: /lib/systemd/system/nginx.service
+
+- name: display
+  shell: systemctl status nginx
+    
