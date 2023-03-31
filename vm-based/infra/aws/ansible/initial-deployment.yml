@@ -9,7 +9,6 @@
 
 - name: configure web
   hosts: web
-
   gather_facts: no
   become: true
   remote_user: '{{ tf_remote_user }}'
@@ -23,7 +22,6 @@
 
 - name: configure app
   hosts: app
-
   gather_facts: no
   become: true
   remote_user: '{{ tf_remote_user }}'
