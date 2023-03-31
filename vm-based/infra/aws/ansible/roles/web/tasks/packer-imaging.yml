@@ -1,9 +1,8 @@
 ---
 - name: Install nginx latest version
   apt:
-    state: latest
-    update_cache: yes
-    upgrade: yes
+    name: nginx
+    state: present
 
 - name: Remove default nginx config
   file:
@@ -14,7 +13,4 @@
   template:
     src: nginx.service.j2
     dest: /lib/systemd/system/nginx.service
-
-- name: display
-  shell: systemctl status nginx
     
