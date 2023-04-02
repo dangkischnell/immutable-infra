@@ -47,13 +47,13 @@ resource "local_sensitive_file" "packer" {
 
 resource "aws_key_pair" "packer" {
   public_key = tls_private_key.packer.public_key_openssh
-  key_name = "packer-key"
+  key_name   = "packer-key"
 }
 
 resource "aws_vpc" "packer" {
-  cidr_block = var.vpc_cidr
+  cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
-  enable_dns_support = true
+  enable_dns_support   = true
 
   # tags = merge(
   #   {
@@ -104,22 +104,22 @@ resource "aws_subnet" "packer" {
 
 resource "aws_route_table_association" "packer" {
   route_table_id = aws_route_table.public.id
-  subnet_id = aws_subnet.packer.id
+  subnet_id      = aws_subnet.packer.id
 }
 
 resource "aws_security_group" "allow-ssh" {
-  name = "allow ssh"
+  name   = "allow ssh"
   vpc_id = aws_vpc.packer.id
   ingress {
-    from_port = 22
-    protocol = "tcp"
-    to_port = 22
-    cidr_blocks = ["0.0.0.0/0"]    
+    from_port   = 22
+    protocol    = "tcp"
+    to_port     = 22
+    cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
-    from_port = 0
-    protocol = "-1"
-    to_port = 0
+    from_port   = 0
+    protocol    = "-1"
+    to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
   # tags = merge(
@@ -132,16 +132,16 @@ resource "aws_security_group" "allow-ssh" {
 
 resource "local_file" "packer-variables" {
   content = templatefile("${path.root}/variables.json.tpl", {
-    region_name            = var.region
-    vpc_id                 = aws_vpc.packer.id
-    subnet_id              = aws_subnet.packer.id
-    private_key            = local.private_keyname_path
-    public_key             = aws_key_pair.packer.key_name
-    security_group_id      = aws_security_group.allow-ssh.id
-    instance_type          = lookup(var.ami_spec, "instance_type")
-    ami_desc               = lookup(var.ami_spec, "ami_desc")
-    ami_owner              = lookup(var.ami_spec, "ami_owner")
-    packer_remote_user     = lookup(var.ami_spec, "packer_remote_user")
+    region_name        = var.region
+    vpc_id             = aws_vpc.packer.id
+    subnet_id          = aws_subnet.packer.id
+    private_key        = local.private_keyname_path
+    public_key         = aws_key_pair.packer.key_name
+    security_group_id  = aws_security_group.allow-ssh.id
+    instance_type      = lookup(var.ami_spec, "instance_type")
+    ami_desc           = lookup(var.ami_spec, "ami_desc")
+    ami_owner          = lookup(var.ami_spec, "ami_owner")
+    packer_remote_user = lookup(var.ami_spec, "packer_remote_user")
   }
 )
   filename = "${path.root}/variables.json"

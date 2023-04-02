@@ -28,21 +28,21 @@ variable "public_subnet_cidr" {
 
 variable "build_number" {
   description = "Jenkin build number"
-  default = 1
+  default     = 1
 }
 
 variable "private_keyname" {
   description = "private keyname"
-  default = "packer_id_rsa"
+  default     = "packer_id_rsa"
 }
 
 variable "ami_spec" {
   description = "AMI spec"
-  default = {
-    "instance_type" = "t2.micro"
-    "ami_desc"      = "Canonical, Ubuntu, 18.04 LTS*"
-    "ami_owner"     = "099720109477"
-    "packer_remote_user"   = "ubuntu"
+  default     = {
+    "instance_type"      = "t2.micro"
+    "ami_desc"           = "Canonical, Ubuntu, 18.04 LTS*"
+    "ami_owner"          = "099720109477"
+    "packer_remote_user" = "ubuntu"
   }
 }
 
